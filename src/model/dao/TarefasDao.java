@@ -10,7 +10,7 @@ public interface TarefasDao {
 	void inserirTarefa(Tarefas obj);
 	void atualizarTarefa(Tarefas obj);
 	void deleteTarefa(Integer id);
-	void atualizarStatus(Integer id);
+	void atualizarStatus(Tarefas obj);
 	Tarefas buscarPorId(Integer id);
 	List<Tarefas> buscarTodas();
 	List<Tarefas> buscarPorUsuario(Usuarios user);

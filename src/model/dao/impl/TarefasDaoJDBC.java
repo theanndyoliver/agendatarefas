@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +32,51 @@ public class TarefasDaoJDBC implements TarefasDao {
 
 	@Override
 	public void inserirTarefa(Tarefas obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO tarefas (titulo,descricao,data,status,idUser) "
+					+"values (?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, obj.getTitulo());
+			st.setString(2, obj.getDescricao());
+			st.setDate(3, new java.sql.Date(obj.getDatah().getTime()));
+			st.setString(4, obj.getStatus().toString());
+			st.setInt(5, obj.getUsuarios().getId());
+			
+			int arrows = st.executeUpdate();
+			
+			if(arrows > 0) {
+				rs=st.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					 obj.setId(id);
+					 System.out.println("Tarefa Id:" +id +" inserida no banco de dados!");
+				
+			}
+			else {
+				throw new DbException("Nenhuma linha afetada!");
+				}
+			}
+			
+			
+			
+			
+			
+		
+	}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+	
+	
+		
+			
+		}finally {
+			DB.ClosePrepared(st);
+			DB.CloseResulSet(rs);
+		}
+		
+		
+		
 		
 	}
 
@@ -42,20 +88,110 @@ public class TarefasDaoJDBC implements TarefasDao {
 
 	@Override
 	public void deleteTarefa(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		
+		
+		try {
+			st = conn.prepareStatement("DELETE FROM tarefas "
+					+"WHERE id = ? "
+					+"LIMIT 1;");
+			
+			st.setInt(1, id);
+			
+			int arrows = st.executeUpdate();
+			
+			if(arrows == 0) {
+				System.out.println("Id da tarefa não encontrado!");
+			}else {
+				System.out.println("Tarefa Id: "+id +" | deletada com sucesso!");
+			}
+			
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.ClosePrepared(st);
+		}
+		
 		
 	}
 
 	@Override
-	public void atualizarStatus(Integer id) {
-		// TODO Auto-generated method stub
+	public void atualizarStatus(Tarefas obj) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+	
+		
+		
+		try {
+			st = conn.prepareStatement("UPDATE tarefas "
+					+"SET status = ?"
+					+"WHERE id = ?",Statement.RETURN_GENERATED_KEYS);
+			
+			
+			st.setString(1,obj.getStatus().toString());
+			st.setInt(2, obj.getId());
+			
+			 int arrows =st.executeUpdate();
+			 
+			 if(arrows > 0) {
+				 
+				 rs=st.getGeneratedKeys();
+				 System.out.println("O status da tarefa foi atualizado com sucesso!");
+				 if(rs.next()) {
+					 int id = rs.getInt(1);
+					
+
+						 
+					 }
+						 
+					 }
+				
+					 
+				
+				 
+			
+		}catch(SQLException e ) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.ClosePrepared(st);
+			DB.CloseResulSet(rs);
+			
+		}
 		
 	}
 
 	@Override
 	public Tarefas buscarPorId(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("SELECT tarefas.*,usuarios.nome from tarefas INNER JOIN usuarios "
+					+ "ON tarefas.idUser = usuarios.id "
+					+ "WHERE tarefas.id= ?");
+			
+			st.setInt(1, id);
+			
+			rs = st.executeQuery();
+			
+			
+			if(rs.next()) {
+				Usuarios user = instantiateUsuarios(rs);
+				Tarefas tarefas = instantiateTarefas(rs,user);
+			
+				return tarefas;
+		}
 		return null;
+		
+				
+		
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.ClosePrepared(st);
+			DB.CloseResulSet(rs);
+			
+		}
 	}
 
 	@Override

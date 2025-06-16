@@ -7,7 +7,7 @@ public enum StatusTarefas {
 	CANCELADO;
 	
 	
-	  public static StatusTarefas getStatusTafas(String statustarefas){
+	  public static StatusTarefas getStatusTarefas(String statustarefas){
           for(StatusTarefas st:StatusTarefas.values()){
               if(st.toString().equals(statustarefas.toUpperCase())){
                   return st;

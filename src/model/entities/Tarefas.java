@@ -22,15 +22,21 @@ public class Tarefas implements Serializable {
 	public Tarefas() {
 		
 	}
-
+	
+	
 
 	public Tarefas(Integer id, String titulo, String descricao, Date datah,StatusTarefas status,Usuarios usuarios) {
 		Id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.datah = datah;
-		this.status = StatusTarefas.PENDENTE;
+		this.status = status;
 		this.usuarios = usuarios;
+	}
+	
+	public Tarefas(Integer id,StatusTarefas status) {
+		Id = id;
+		this.status = status;
 	}
 
 

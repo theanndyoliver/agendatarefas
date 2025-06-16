@@ -17,7 +17,7 @@ public class Usuarios implements Serializable {
 
 
 	public Usuarios(Integer id, String nome) {
-		Id = id;
+		this.Id = id;
 		Nome = nome;
 	}
 
