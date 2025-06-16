@@ -14,6 +14,10 @@ public class Usuarios implements Serializable {
 	public Usuarios() {
 		
 	}
+	
+	public Usuarios(Integer id) {
+		this.Id = id;
+	}
 
 
 	public Usuarios(Integer id, String nome) {

@@ -13,6 +13,6 @@ public interface TarefasDao {
 	void atualizarStatus(Tarefas obj);
 	Tarefas buscarPorId(Integer id);
 	List<Tarefas> buscarTodas();
-	List<Tarefas> buscarPorUsuario(Usuarios user);
+	
 
 }

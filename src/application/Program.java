@@ -50,7 +50,13 @@ public class Program {
 		System.out.println("-=== Inserir nova tarefa  ===-");
 		Usuarios user = new Usuarios(2,null);
 		Tarefas xbbb = new Tarefas(null,"Vistoriar os buracos das ruas","OBS: Fotografar ou filmar.",sdf.parse(dt),StatusTarefas.PENDENTE,user);
-		tf.inserirTarefa(xbbb);
+		//tf.inserirTarefa(xbbb);
+		
+		System.out.println();
+		System.out.println("-=== Atualizar Tarefa  ===-");
+		Usuarios userxbb = new Usuarios(1,null);
+		Tarefas xblll = new Tarefas(13,"Varrer","Ruas do Bairro",new Date(),StatusTarefas.CONCLUIDO,userxbb);
+		tf.atualizarTarefa(xblll);
 		
 	
 

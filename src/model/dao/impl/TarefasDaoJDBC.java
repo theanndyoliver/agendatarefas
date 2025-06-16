@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +81,35 @@ public class TarefasDaoJDBC implements TarefasDao {
 
 	@Override
 	public void atualizarTarefa(Tarefas obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		
+		
+		try {
+			st= conn.prepareStatement("UPDATE tarefas "
+					+"SET titulo = ? ,descricao = ?,data = ?,status = ?,idUser= ? "
+				  +"WHERE id = ?",Statement.RETURN_GENERATED_KEYS);
+			
+			
+			st.setString(1, obj.getTitulo());
+			st.setString(2, obj.getDescricao());
+			st.setDate(3, new java.sql.Date(obj.getDatah().getTime()));
+			st.setString(4, obj.getStatus().toString());
+			st.setInt(5, obj.getUsuarios().getId());
+			st.setInt(6, obj.getId());
+			
+			int arrows = st.executeUpdate();
+			
+			if(arrows > 0) {
+				System.out.println("Tarefa atualizada com sucesso!");
+			}
+			
+			
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+			
+		}finally {
+			DB.ClosePrepared(st);
+		}
 		
 	}
 
@@ -238,17 +265,6 @@ public class TarefasDaoJDBC implements TarefasDao {
 	}
 	}
 
-	
-	
-	
-		
-	
-	@Override
-	public List<Tarefas> buscarPorUsuario(Usuarios user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public Usuarios instantiateUsuarios(ResultSet rs) throws SQLException {
 		Usuarios userx = new  Usuarios();
 		userx.setId(rs.getInt("idUser"));
