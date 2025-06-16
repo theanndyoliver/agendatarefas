@@ -1,14 +1,22 @@
 package application;
 
-import java.util.Date;
+import java.util.List;
 
-import model.entities.StatusTarefas;
+import model.dao.DaoFactory;
+import model.dao.TarefasDao;
 import model.entities.Tarefas;
-import model.entities.Usuarios;
 
 public class Program {
 
 	public static void main(String[] args) {
+		
+		TarefasDao tf = DaoFactory.createTarefasDao();
+		
+		List<Tarefas> list = tf.buscarTodas();
+		
+		for(Tarefas x : list) {
+			System.out.println(x);
+		}
 		
 		
 	
