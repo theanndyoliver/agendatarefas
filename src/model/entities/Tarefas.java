@@ -124,18 +124,4 @@ public class Tarefas implements Serializable {
 		return "Tarefas [Id=" + Id + ", titulo=" + titulo + ", descricao=" + descricao + ", datah=" + datah
 				+ ", status=" + status + ", usuarios=" + usuarios + "]";
 	}
-
-
-
-
-		
-
-	
-	
-
-
-
-
-
-
 }

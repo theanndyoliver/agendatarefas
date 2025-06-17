@@ -69,9 +69,4 @@ public class Usuarios implements Serializable {
 	public String toString() {
 		return "Usuarios [Id=" + Id + ", Nome=" + Nome + "]";
 	}
-	
-	
-	
-	
-
 }

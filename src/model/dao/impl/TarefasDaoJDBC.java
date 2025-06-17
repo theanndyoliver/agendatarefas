@@ -274,14 +274,3 @@ public class TarefasDaoJDBC implements TarefasDao {
 		return tf;
 	}
 }
-
-	
-
-
-
-
-		
-		
-		
-
-
