@@ -145,9 +145,6 @@ public class TarefasDaoJDBC implements TarefasDao {
 	@Override
 	public void atualizarStatus(Tarefas obj) {
 		PreparedStatement st = null;
-		ResultSet rs = null;
-	
-		
 		
 		try {
 			st = conn.prepareStatement("UPDATE tarefas "
@@ -161,27 +158,16 @@ public class TarefasDaoJDBC implements TarefasDao {
 			 int arrows =st.executeUpdate();
 			 
 			 if(arrows > 0) {
-				 
-				 rs=st.getGeneratedKeys();
-				 System.out.println("O status da tarefa foi atualizado com sucesso!");
-				 if(rs.next()) {
-					 int id = rs.getInt(1);
-					
 
+				 System.out.println("O status da tarefa foi atualizado com sucesso!");
+				
 						 
 					 }
 						 
-					 }
-				
-					 
-				
-				 
-			
 		}catch(SQLException e ) {
 			throw new DbException(e.getMessage());
 		}finally {
 			DB.ClosePrepared(st);
-			DB.CloseResulSet(rs);
 			
 		}
 		
