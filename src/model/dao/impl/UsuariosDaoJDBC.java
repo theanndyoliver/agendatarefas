@@ -82,10 +82,16 @@ public class UsuariosDaoJDBC implements UsuariosDao {
 	public void deletarUsuario(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("delete from usuarios where id= ? "
+			st = conn.prepareStatement("delete from usuarios where usuarios.id= ? "
 					+ "LIMIT 1;");
 			
 			st.setInt(1, id);
+			
+			int arrows = st.executeUpdate();
+			if(arrows > 0) {
+				System.out.println("Usuario apagado do banco de dados com sucesso!");
+			}
+			
 		}catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		}finally {

@@ -37,6 +37,10 @@ public class Program2 {
 		System.out.println("-=== Buscar usuario por Id ===-");
 		System.out.println(us.buscarPorId(2));
 		
+		System.out.println();
+		System.out.println("-=== Deletar usuario por Id ===-");
+		us.deletarUsuario(4);
+		
 
 	}
 
